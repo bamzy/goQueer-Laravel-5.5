@@ -25,12 +25,17 @@ class SetController extends Controller
      */
     public function index(Request $request)
     {
-        if (Auth::check()) {
+//        if (Auth::check()) {
             $sets = Set::orderBy('id','DESC')->paginate(5);
             return view('set.index',compact('sets'))
                 ->with('i', ($request->input('page', 1) - 1) * 5);
-        } else
-            return view('errors.permission');
+//        } else
+//            return view('errors.permission');
+    }
+    public function datatable()
+    {
+        $customers = Customer::all();
+        return view('customers.datatable', compact('customers'));
     }
 
     /**

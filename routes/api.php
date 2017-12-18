@@ -12,4 +12,5 @@
 */
 
 Route::get('/api/v1/customers', 'APIController@getCustomers')->name('api.customers.index');
+Route::get('/api/v1/customers', 'APIController@getSets')->name('api.sets.index');
 
