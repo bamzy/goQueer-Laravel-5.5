@@ -2,13 +2,7 @@
 
 @section('section')
 
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="text-center">
-                <h1>Media List</h1>
-            </div>
-        </div>
-    </div>
+
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
@@ -16,62 +10,106 @@
         </div>
     @endif
 
-    <table class="table table-bordered">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Source</th>
-            <th>Publish Date</th>
-            <th>Description</th>
-            <th width="200px">Action</th>
-        </tr>
-        @foreach ($medias as $key => $media)
-            <tr>
-                <td><div style="height:40px; overflow:hidden">{{ ++$i }}</div></td>
-                <td><div style="height:40px; overflow:hidden">{{ $media->name }}</div></td>
-                <td><div style="height:40px; overflow:hidden">{{ $media->source }}</div></td>
-                <td><div style="height:40px;width:80px; overflow:hidden">{{ $media->date }}</div></td>
-                <td><div style="height:40px;width:250px; overflow:hidden">{{ $media->description }}</div></td>
 
-                <td>
-                    <a class="btn btn-success" href="{{ route('media.show',$media->id) }}">Show</a>
-                    <a class="btn btn-info" href="{{ route('media.edit',$media->id) }}">Edit</a>
-                    {!! Form::open(['method' => 'DELETE','route' => ['media.destroy', $media->id],'style'=>'display:inline']) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                    {!! Form::close() !!}
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
 
-                </td>
-            </tr>
-        @endforeach
-    </table>
+    <div class="container" >
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><div class="row">
+                            <div class="col-lg-12 margin-tb">
+                                <div class="text-center">
+                                    <h1>Media List</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-    <table id="project-table" class="table table-condensed table-bordered table-striped">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>name</th>
-            <th>created at</th>
-        </tr>
-        </thead>
-    </table>
+                    <div class="panel-body">
+                        <table class="table" id="table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Source</th>
+                                <th>Publish Date</th>
+                                <th>Description</th>
+
+                                <th>Show</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tfoot>
+
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
     <script>
+        $(document).ready( function () {
+            $('#table').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": "{{ route('api.medias.index') }}",
 
-        $(document).ready(function() {
-            $('#project-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: '{{ url("client/test") }}',
-                columns: [
-                    {data: 'id', name: 'id'},
-                    {data: 'name', name: 'name'},
-                    {data: 'created_at', name: 'created_at'}]
+                "columnDefs": [ {
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": "<button>Click!</button>"
+                } ],
+                "columns": [
+                    { "data": "id" },
+                    { "data": "name" },
+                    { "data": "source" },
+                    { "data": "publish_date" },
+                    { "data": "description" },
+                    {
+                        sortable: false,
+                        "render": function ( data, type, full, meta ) {
+                            return "<a  class='btn btn-info' href='./media/"+full.id+"'> Show </a>";
+
+                        }
+                    },
+                    {
+                        sortable: false,
+                        "render": function ( data, type, full, meta ) {
+                            return "<a  class='btn btn-primary' href='./media/"+full.id+"/edit'> Edit </a>";
+
+                        }
+                    },
+                    {
+                        sortable: false,
+                        "render": function ( data, type, full, meta ) {
+                            return  "<a  class='btn btn-danger' href='./media/"+full.id+"/destroy'> Delete </a>";
+
+                        }
+                    }
+                ]
+
             });
         });
-
     </script>
 
-    {!! $medias->render() !!}
-    <div class="text-center">
-        <a class="btn btn-success" href="{{ route('media.create') }}"> Add New Media</a>
+
+
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><div class="row">
+                    <div class="text-center">
+                        <a class="btn btn-success" href="{{ route('media.create') }}"> New Media</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

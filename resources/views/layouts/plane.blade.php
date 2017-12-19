@@ -27,6 +27,15 @@
             height: 100vh;
             margin: 0;
         }
+        table.dataTable.no-footer {
+            width: 100%;
+            border-bottom: 1px solid #111;
+        }
+
+        .container {
+                width: 100%;
+                margin: 0px;
+            }
     </style>
 
 </head>
