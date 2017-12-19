@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Customer;
 use App\Models\Set;
 use App\Models\Media;
+use App\Models\Profile;
 use Illuminate\Support\Facades\DB;
 
 class APIController extends Controller
@@ -26,12 +27,17 @@ class APIController extends Controller
         $query = Media::select('id', 'name', 'source','publish_date','description');
         return datatables($query)->make(true);
     }
+    public function getProfiles()
+    {
+
+        $query = Profile::select('id', 'name','description');
+        return datatables($query)->make(true);
+    }
      public function getLocations()
     {
         $query = \DB::table('location')
             ->join('profile', 'location.profile_id', '=', 'profile.id')
             ->select('location.*', 'profile.name as profileName')->get();
-//        $query = Location::select('id', 'name', 'description','publish_date','description');
         return datatables($query)->make(true);
     }
 
