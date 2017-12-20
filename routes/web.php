@@ -49,6 +49,7 @@ Route::get('gallery/{id}/destroy','GalleryController@destroy');
 Route::resource('message','MessageController');
 Route::resource('gallery_media','GalleryMediaController');
 Route::resource('final','FinalController');
+Route::resource('test','TestController');
 Route::resource('map','MapController');
 //Route::resource('set','SetController');
 Route::resource('set', 'SetController', ['except' => ['destroy']]);
@@ -60,3 +61,15 @@ Route::resource('hint','HintController');
 Route::auth();
 
 
+
+Route::get('/client/getAllLocations', array('uses' => 'PlayerController@getAllLocations'));
+Route::get('/client/getMyLocations', array('uses' => 'PlayerController@getMyLocations'));
+Route::get('/client/downloadMediaById', array('uses' => 'PlayerController@downloadMediaById'));
+Route::get('/client/getGalleryMediaById', array('uses' => 'PlayerController@getMediaByGalleryId'));
+Route::get('/client/getMediaById', array('uses' => 'PlayerController@getMediaById'));
+Route::get('/client/getGalleryById', array('uses' => 'PlayerController@getGalleryById'));
+Route::get('/client/setDiscoveryStatus', array('uses' => 'PlayerController@updateDiscoveryStatus'));
+Route::get('/client/getHint', array('uses' => 'PlayerController@getHint'));
+Route::get('/client/getSetStatusSummary', array('uses' => 'PlayerController@getSetStatusSummary'));
+Route::get('/client/getAllProfiles', array('uses' => 'ProfileController@getAllExceptDraft'));
+Route::get('/client/test', array('uses' => 'ProjectController@getDatatable'));
