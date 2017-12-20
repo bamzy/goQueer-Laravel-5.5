@@ -41,9 +41,9 @@ class FinalController extends Controller
     public function create()
     {
         if (Auth::check()) {
-            $locations = Location::lists('name', 'id');
-            $types = MediaType::lists('name', 'id');
-            $statuses = CopyrightStatus::lists('status', 'id');
+            $locations = Location::pluck('name', 'id');
+            $types = MediaType::pluck('name', 'id');
+            $statuses = CopyrightStatus::pluck('status', 'id');
             return view('media.create', compact('id', 'types','statuses'))->with('email',Auth::user()->email);
         } else
             return view('errors.permission');

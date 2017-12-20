@@ -35,7 +35,6 @@
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Created Date</th>
-                                <th>Show</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -80,13 +79,6 @@
                     { "data": "name" },
                     { "data": "description" },
                     { "data": "created_at" },
-                    {
-                        sortable: false,
-                        "render": function ( data, type, full, meta ) {
-                            return "<a  class='btn btn-info' href='./set/"+full.id+"'> Show </a>";
-
-                        }
-                    },
                     {
                         sortable: false,
                         "render": function ( data, type, full, meta ) {

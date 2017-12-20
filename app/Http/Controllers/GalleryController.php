@@ -48,7 +48,7 @@ class GalleryController extends Controller
     {
         if (Auth::check()) {
 
-            $sets = Set::lists('name', 'id');
+            $sets = Set::pluck('name', 'id');
 //            return view('media.create', compact('id', 'types','statuses'))->with('email',Auth::user()->email);
             return view('gallery.create', compact('sets'))->with('email',Auth::user()->email);
         } else

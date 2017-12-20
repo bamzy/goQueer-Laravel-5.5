@@ -43,8 +43,8 @@ class LocationController extends Controller
     public function create()
     {
         if (Auth::check()) {
-            $galleries = Gallery::lists('name', 'id');
-            $profiles = Profile::lists('name', 'id');
+            $galleries = Gallery::pluck('name', 'id');
+            $profiles = Profile::pluck('name', 'id');
             return view('location.create',compact('galleries','profiles'))->with('email',Auth::user()->email);
         } else
             return view('errors.permission');
@@ -118,8 +118,8 @@ class LocationController extends Controller
     {
         if (Auth::check()) {
             $location = Location::find($id);
-            $galleries = Gallery::lists('name', 'id');
-            $profiles = Profile::lists('name', 'id');
+            $galleries = Gallery::pluck('name', 'id');
+            $profiles = Profile::pluck('name', 'id');
             return view('location.edit', compact('location','profiles'))->with('galleries',$galleries)->with('email',Auth::user()->email);
         }else
             return view('errors.permission');

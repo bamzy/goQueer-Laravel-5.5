@@ -13,7 +13,7 @@
 Route::get('/', function () {
     return view('home',['email' => 'James']);
 })->name('simple');
-
+Route::get('/home', 'HomeController@index');
 Route::get('/', 'HomeController@index')->name('simple');
 Route::get('/ajax', 'HomeController@ajax')->name('ajax');
 
@@ -37,19 +37,26 @@ Route::resource('order', 'OrderController');
 //Route::resource('location','LocationController');
 Route::resource('location', 'LocationController', ['except' => ['destroy']]);
 Route::get('location/{id}/destroy','LocationController@destroy');
-Route::resource('draft','DraftController');
+//Route::resource('draft','DraftController');
+Route::resource('draft', 'DraftController', ['except' => ['destroy']]);
+Route::get('draft/{id}/destroy','DraftController@destroy');
 //Route::resource('media','MediaController');
 Route::resource('media', 'MediaController', ['except' => ['destroy']]);
 Route::get('media/{id}/destroy','MediaController@destroy');
-Route::resource('gallery','GalleryController');
+//Route::resource('gallery','GalleryController');
+Route::resource('gallery', 'GalleryController', ['except' => ['destroy']]);
+Route::get('gallery/{id}/destroy','GalleryController@destroy');
 Route::resource('message','MessageController');
 Route::resource('gallery_media','GalleryMediaController');
-Route::resource('test','TestController');
 Route::resource('final','FinalController');
 Route::resource('map','MapController');
 //Route::resource('set','SetController');
 Route::resource('set', 'SetController', ['except' => ['destroy']]);
 Route::get('set/{id}/destroy','SetController@destroy');
-Route::resource('profile','ProfileController');
+//Route::resource('profile','ProfileController');
+Route::resource('profile', 'ProfileController', ['except' => ['destroy']]);
+Route::get('profile/{id}/destroy','ProfileController@destroy');
 Route::resource('hint','HintController');
 Route::auth();
+
+

@@ -33,6 +33,18 @@ class APIController extends Controller
         $query = Profile::select('id', 'name','description');
         return datatables($query)->make(true);
     }
+
+    public function getGalleries()
+    {
+        $query =  DB::table('gallery')
+            ->join('sets', 'gallery.set_id', '=', 'sets.id')
+            ->select('gallery.*','sets.name AS set_name')
+            ->orderBy('gallery.id', 'desc')
+            ->get();
+
+//        $query = Profile::select('id', 'name','description');
+        return datatables($query)->make(true);
+    }
      public function getLocations()
     {
         $query = \DB::table('location')

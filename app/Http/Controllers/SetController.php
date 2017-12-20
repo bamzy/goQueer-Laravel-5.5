@@ -101,8 +101,8 @@ class SetController extends Controller
     {
         if (Auth::check()) {
             $set = Set::find($id);
-            $sets = Set::lists('name', 'id');
-            return view('set.edit',compact('set','sets'));
+            $sets = Set::pluck('name', 'id');
+            return view('set.edit',compact('set','sets'))->with('email',Auth::user()->email);
         } else
             return view('errors.permission');
     }

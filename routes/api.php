@@ -12,8 +12,9 @@
 */
 
 Route::get('/api/v1/customers', 'APIController@getCustomers')->name('api.customers.index');
-Route::get('/api/v1/customers', 'APIController@getSets')->name('api.sets.index');
-Route::get('/api/v1/customers', 'APIController@getMedias')->name('api.medias.index');
-Route::get('/api/v1/customers', 'APIController@getLocations')->name('api.locations.index');
-Route::get('/api/v1/customers', 'APIController@getProfiles')->name('api.profiles.index');
+Route::get('/api/v1/sets', 'APIController@getSets')->name('api.sets.index');
+Route::get('/api/v1/medias', 'APIController@getMedias')->name('api.medias.index');
+Route::get('/api/v1/locations', 'APIController@getLocations')->name('api.locations.index');
+Route::get('/api/v1/profiles', 'APIController@getProfiles')->name('api.profiles.index');
+Route::get('/api/v1/galleries', 'APIController@getGalleries')->name('api.galleries.index');
 

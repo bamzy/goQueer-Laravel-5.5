@@ -19,8 +19,7 @@ class HomeController extends Controller
 
     public function index()
     {
-        $customers = Customer::all();
-        return view('customers.table', compact('customers'));
+        return view('home');
     }
 
     public function datatable()
