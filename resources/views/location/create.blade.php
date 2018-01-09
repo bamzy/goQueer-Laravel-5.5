@@ -91,7 +91,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Description:</strong>
-                {!! Form::textarea('description', null, array('placeholder' => 'Enter additional information','class' => 'form-control','style'=>'height:100px')) !!}
+                {!! Form::textarea('description', null, array('placeholder' => 'Enter additional information','class' => 'form-control','style'=>'height:250px')) !!}
             </div>
         </div>
 

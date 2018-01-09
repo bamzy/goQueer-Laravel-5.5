@@ -79,6 +79,19 @@
             </div>
         </div>
 
+        <div class="col-xs-3 col-sm-3 col-md-3">
+            <div class="form-group">
+                <strong>Old File Name:</strong>
+                {{ $media->fileName }}
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <div class="form-group">
+                <strong>New File:</strong>
+                {!! Form::file('file_name', $attributes = array()) !!}
+            </div>
+        </div>
+
 
 
 

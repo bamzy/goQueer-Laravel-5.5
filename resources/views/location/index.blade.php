@@ -73,6 +73,7 @@
                     { "data": "profileName" },
                     {
                         sortable: false,
+                        searchable:false,
                         "render": function ( data, type, full, meta ) {
                             return "<a  class='btn btn-info' href='./location/"+full.id+"'> Configure </a>";
 
@@ -80,6 +81,7 @@
                     },
                     {
                         sortable: false,
+                        searchable:false,
                         "render": function ( data, type, full, meta ) {
                             return "<a  class='btn btn-primary' href='./location/"+full.id+"/edit'> Edit </a>";
 

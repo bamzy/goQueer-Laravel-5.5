@@ -68,6 +68,7 @@
                     { "data": "description" },
                     {
                         sortable: false,
+                        searchable:false,
                         "render": function ( data, type, full, meta ) {
                             return "<a  class='btn btn-info' href='./gallery/"+full.id+"'> Config </a>";
 
@@ -75,6 +76,7 @@
                     },
                     {
                         sortable: false,
+                        searchable:false,
                         "render": function ( data, type, full, meta ) {
                             return "<a  class='btn btn-primary' href='./gallery/"+full.id+"/edit'> Edit </a>";
 
@@ -82,6 +84,7 @@
                     },
                     {
                         sortable: false,
+                        searchable:false,
                         "render": function ( data, type, full, meta ) {
                             return  "<a  class='btn btn-danger' href='./gallery/"+full.id+"/destroy'> Delete </a>";
 

@@ -25,12 +25,7 @@ class MediaController extends Controller
      * @return \Illuminate\Http\Response
      */
     private  $pageSize = 15;
-    public function test(){
 
-                $users = Media::all();
-                return Datatables::of($users)->make();
-
-    }
     public function index(Request $request)
     {
         if (Auth::check()) {
@@ -114,7 +109,8 @@ class MediaController extends Controller
             $media = Media::find($id);
             $user = DB::table('user')->where('id', '=', $media->user_id)->first();
             //$user = \User::find($media->user_id);
-            $user_name = $user->name;
+            if ($user != null)
+                $user_name = $user->name;
             $comments = DB::table('message')
                 ->join('user', 'user.id', '=', 'message.user_id')
                 ->select('message.*', 'user.name')
@@ -159,22 +155,23 @@ class MediaController extends Controller
             $this->validate($request, [
                 'source' => 'required',
                 'type_id' => 'required',
-//                'file_name' => 'required',
+                'file_name' => 'required',
                 'description' => 'required',
             ]);
-
-//            $file = $request->file('file_name');
-//            $fileName = $file->getClientOriginalName();
-//            $filePath = $file->getRealPath();
-//            $destinationPath = 'uploads';
-//            $file->move($destinationPath, $file->getClientOriginalName());
+            dd($request->file('file_name'));
+            $file = $request->file('file_name');
+            $fileName = $file->getClientOriginalName();
+            dd($fileName);
+            $filePath = $file->getRealPath();
+            $destinationPath = 'uploads';
+            $file->move($destinationPath, $file->getClientOriginalName());
             DB::table('media')
                 ->where('id',$id)
                 ->update(
                 ['source' => $request->source,
                     'description' => $request->description,
-//                    'filePath' => $filePath,
-//                    'fileName' => $fileName,
+                    'filePath' => $filePath,
+                    'fileName' => $fileName,
                     'publish_date' => $request->publish_date,
                     'display_date' => $request->display_date,
                     'updated_at' => new \DateTime(),

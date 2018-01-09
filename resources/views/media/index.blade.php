@@ -75,6 +75,7 @@
                     { "data": "description" },
                     {
                         sortable: false,
+                        searchable:false,
                         "render": function ( data, type, full, meta ) {
                             return "<a  class='btn btn-info' href='./media/"+full.id+"'> Show </a>";
 
@@ -82,6 +83,7 @@
                     },
                     {
                         sortable: false,
+                        searchable:false,
                         "render": function ( data, type, full, meta ) {
                             return "<a  class='btn btn-primary' href='./media/"+full.id+"/edit'> Edit </a>";
 
@@ -89,6 +91,7 @@
                     },
                     {
                         sortable: false,
+                        searchable:false,
                         "render": function ( data, type, full, meta ) {
                             return  "<a  class='btn btn-danger' href='./media/"+full.id+"/destroy'> Delete </a>";
 
