@@ -10,6 +10,12 @@
         </div>
     </div>
 
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+
     @if (count($errors) > 0)
         <div class="alert alert-danger">
             <strong>Whoops!</strong> There were some problems with your input.<br><br>
@@ -21,8 +27,10 @@
         </div>
     @endif
 
-    {!! Form::model($media, ['method' => 'PATCH','route' => ['media.update', $media->id]]) !!}
+    {!! Form::model($media, ['action' => 'MediaController@update','method'=>'POST','files'=>true]) !!}
+{{--    {!! Form::open(array('action' => 'MediaController@store','method'=>'POST','files'=>true)) !!}--}}
     <div class="row" >
+        {{ Form::hidden('media_id', $media->id, array('id' => 'media_id','class'=>'form-control')) }}
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div class="form-group">
                 {!! Form::Label('date', 'Publish Date:') !!}
@@ -99,6 +107,8 @@
             <button type="submit" class="btn btn-primary">Update</button>
             <a class="btn btn-primary" href="{{ route('media.index') }}">Back</a>
         </div>
+
+
 
     </div>
     {!! Form::close() !!}

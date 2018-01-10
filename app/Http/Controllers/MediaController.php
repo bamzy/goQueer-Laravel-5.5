@@ -12,6 +12,7 @@ use App\Models\CopyrightStatus;
 use App\Models\Location;
 use App\Models\Media;
 use App\Models\MediaType;
+use App\Post;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -70,6 +71,7 @@ class MediaController extends Controller
 
             ]);
 
+        dd('hieee'.  $request->input('id'));
             $file = $request->file('file_name');
             $fileName = $file->getClientOriginalName();
             $filePath = $file->getRealPath();
@@ -96,6 +98,65 @@ class MediaController extends Controller
         } else
             return view('errors.permission');
     }
+
+    public function update(Request $request)
+    {
+
+        if (Auth::check()) {
+            $this->validate($request, [
+
+                'source' => 'required',
+                'type_id' => 'required',
+                'description' => 'required',
+
+            ]);
+
+            $file = $request->file('file_name');
+            $fileName = $file->getClientOriginalName();
+//            dd('hieee'.  $fileName. '|');
+            $filePath = $file->getRealPath();
+            $destinationPath = 'uploads';
+            $file->move($destinationPath, $file->getClientOriginalName());
+
+//            DB::table('media')->insert(
+//                ['source' => $request->source,
+//                    'description' => $request->description,
+//                    'filePath' => $filePath,
+//                    'fileName' => $fileName,
+//                    'publish_date' => $request->publish_date,
+//                    'display_date' => $request->display_date,
+//                    'created_at' => new \DateTime(),
+//                    'updated_at' => new \DateTime(),
+//                    'name' => $request->name,
+//                    'type_id' => $request->type_id,
+//                    'progress_status_id' => '1',
+//                    'copyright_status_id' => $request->copyright_status_id,
+//                    'user_id' => Auth::id()]
+//            );
+
+            DB::table('media')
+                ->where('id', $request->input('media_id'))
+                ->update(
+                ['source' => $request->source,
+                    'description' => $request->description,
+                    'filePath' => $filePath,
+                    'fileName' => $fileName,
+                    'publish_date' => $request->publish_date,
+                    'display_date' => $request->display_date,
+                    'updated_at' => new \DateTime(),
+                    'name' => $request->name,
+                    'type_id' => $request->type_id,
+                    'progress_status_id' => '1',
+                    'copyright_status_id' => $request->copyright_status_id,
+                    'user_id' => Auth::id()]
+            );
+
+            return redirect()->route('media.edit',$request->media_id)
+                ->with('success', 'Media added successfully')->with('email',Auth::user()->email);
+        } else
+            return view('errors.permission');
+    }
+
 
     /**
      * Display the specified resource.
@@ -149,46 +210,59 @@ class MediaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        if (Auth::check()) {
-            $this->validate($request, [
-                'source' => 'required',
-                'type_id' => 'required',
-                'file_name' => 'required',
-                'description' => 'required',
-            ]);
-            dd($request->file('file_name'));
-            $file = $request->file('file_name');
-            $fileName = $file->getClientOriginalName();
-            dd($fileName);
-            $filePath = $file->getRealPath();
-            $destinationPath = 'uploads';
-            $file->move($destinationPath, $file->getClientOriginalName());
-            DB::table('media')
-                ->where('id',$id)
-                ->update(
-                ['source' => $request->source,
-                    'description' => $request->description,
-                    'filePath' => $filePath,
-                    'fileName' => $fileName,
-                    'publish_date' => $request->publish_date,
-                    'display_date' => $request->display_date,
-                    'updated_at' => new \DateTime(),
-                    'name' => $request->name,
-                    'type_id' => $request->type_id,
-                    'progress_status_id' => '1',
-                    'copyright_status_id' => $request->copyright_status_id,
-                    'user_id' => Auth::id()]
-            );
+//    public function update(Request $request, $id)
+//    {
+//        if (Auth::check()) {
+//            $this->validate($request, [
+//                'source' => 'required',
+//                'type_id' => 'required',
+//                'file_name' => 'required',
+//                'description' => 'required',
+//            ]);
+//
+//            request()->validate([
+//
+//                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+//
+//            ]);
+//            dd(request()->id);
+////            $imageName = time().'.'.request()->image->getClientOriginalExtension();
+////            request()->image->move(public_path('images'), $imageName);
+////
+////            dd($imageName);
+////            $file = $request->file('file_name');
+////            $fileName = $file->getClientOriginalName();
+////            dd($fileName);
+////            $filePath = $file->getRealPath();
+////            $destinationPath = 'uploads';
+////            $file->move($destinationPath, $file->getClientOriginalName());
+////            DB::table('media')
+////                ->where('id',$id)
+////                ->update(
+////                ['source' => $request->source,
+////                    'description' => $request->description,
+////                    'filePath' => $filePath,
+////                    'fileName' => $fileName,
+////                    'publish_date' => $request->publish_date,
+////                    'display_date' => $request->display_date,
+////                    'updated_at' => new \DateTime(),
+////                    'name' => $request->name,
+////                    'type_id' => $request->type_id,
+////                    'progress_status_id' => '1',
+////                    'copyright_status_id' => $request->copyright_status_id,
+////                    'user_id' => Auth::id()]
+////            );
+////
+////
+////
+//
+//           // Media::find($id)->update($request->all());
+//            return redirect()->route('media.index')
+//                ->with('success', 'Media updated successfully')->with('email',Auth::user()->email);
+//        } else
+//            return view('errors.permission');
+//    }
 
-
-           // Media::find($id)->update($request->all());
-            return redirect()->route('media.index')
-                ->with('success', 'Media updated successfully')->with('email',Auth::user()->email);
-        } else
-            return view('errors.permission');
-    }
 
     /**
      * Remove the specified resource from storage.
