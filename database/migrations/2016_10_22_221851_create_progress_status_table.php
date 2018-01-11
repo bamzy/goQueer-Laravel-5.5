@@ -1,10 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCustomersTable extends Migration
+class CreateProgressStatusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +12,9 @@ class CreateCustomersTable extends Migration
      */
     public function up()
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('progress_status', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email');
-            $table->timestamps();
+            $table->text('status');
         });
     }
 
@@ -29,6 +25,6 @@ class CreateCustomersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customers');
+        Schema::drop('progress_status');
     }
 }
