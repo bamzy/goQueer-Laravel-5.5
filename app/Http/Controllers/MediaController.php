@@ -46,7 +46,7 @@ class MediaController extends Controller
     {
         if (Auth::check()) {
             $locations = Location::pluck('name', 'id');
-            $types = MediaType::pluck('name', 'id');
+            $types = MediaType::orderBy('id','desc')->pluck('name', 'id');
                 $statuses = CopyrightStatus::pluck('status', 'id');
             return view('media.create', compact('id', 'types','statuses'))->with('email',Auth::user()->email);
         } else
@@ -66,17 +66,23 @@ class MediaController extends Controller
 
                 'source' => 'required',
                 'type_id' => 'required',
-                'file_name' => 'required',
+                'name' => 'required',
+
                 'description' => 'required',
 
             ]);
 
-        dd('hieee'.  $request->input('id'));
             $file = $request->file('file_name');
-            $fileName = $file->getClientOriginalName();
-            $filePath = $file->getRealPath();
-            $destinationPath = 'uploads';
-            $file->move($destinationPath, $file->getClientOriginalName());
+            if ($file != null) {
+
+                $fileName = $file->getClientOriginalName();
+                $filePath = $file->getRealPath();
+                $destinationPath = 'uploads';
+                $file->move($destinationPath, $file->getClientOriginalName());
+            } else {
+                $fileName = "";
+                $filePath = "";
+            }
 
             DB::table('media')->insert(
                 ['source' => $request->source,
@@ -91,6 +97,7 @@ class MediaController extends Controller
                     'type_id' => $request->type_id,
                     'progress_status_id' => '1',
                     'copyright_status_id' => $request->status_id,
+                    'media_url' => $request->media_url,
                     'user_id' => Auth::id()]
             );
             return redirect()->route('media.index')
@@ -112,27 +119,18 @@ class MediaController extends Controller
             ]);
 
             $file = $request->file('file_name');
-            $fileName = $file->getClientOriginalName();
-//            dd('hieee'.  $fileName. '|');
-            $filePath = $file->getRealPath();
-            $destinationPath = 'uploads';
-            $file->move($destinationPath, $file->getClientOriginalName());
+            if ($file != null) {
+                $fileName = $file->getClientOriginalName();
+                $filePath = $file->getRealPath();
+                $destinationPath = 'uploads';
+                $file->move($destinationPath, $file->getClientOriginalName());
 
-//            DB::table('media')->insert(
-//                ['source' => $request->source,
-//                    'description' => $request->description,
-//                    'filePath' => $filePath,
-//                    'fileName' => $fileName,
-//                    'publish_date' => $request->publish_date,
-//                    'display_date' => $request->display_date,
-//                    'created_at' => new \DateTime(),
-//                    'updated_at' => new \DateTime(),
-//                    'name' => $request->name,
-//                    'type_id' => $request->type_id,
-//                    'progress_status_id' => '1',
-//                    'copyright_status_id' => $request->copyright_status_id,
-//                    'user_id' => Auth::id()]
-//            );
+
+            } else {
+                $fileName = "";
+                $filePath = "";
+            }
+
 
             DB::table('media')
                 ->where('id', $request->input('media_id'))
@@ -148,6 +146,7 @@ class MediaController extends Controller
                     'type_id' => $request->type_id,
                     'progress_status_id' => '1',
                     'copyright_status_id' => $request->copyright_status_id,
+                    'media_url' => $request->media_url,
                     'user_id' => Auth::id()]
             );
 

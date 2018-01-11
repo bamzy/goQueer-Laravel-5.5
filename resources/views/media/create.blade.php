@@ -32,7 +32,7 @@
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div  class="form-group">
                 {!! Form::Label('type', 'Type:') !!}
-                {!! Form::select('type_id', $types, null, ['class' => 'form-control']) !!}
+                {!! Form::select('type_id', $types, null, ['class' => 'form-control','onClick'=>'updateInputFields()','id'=>'media_type_id']) !!}
             </div>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
@@ -41,6 +41,13 @@
                 {!! Form::select('status_id', $statuses, null, ['class' => 'form-control']) !!}
             </div>
         </div>
+        <div class="col-xs-8 col-sm-8 col-md-8" style="display:none" id="media_url" >
+            <div  class="form-group" >
+                {!! Form::Label('media_url', 'Media URL:') !!}
+                {!! Form::text('media_url', null, array('placeholder' => 'Media URL','class' => 'form-control')) !!}
+            </div>
+        </div>
+
         <div class="col-xs-8 col-sm-8 col-md-8">
             <div class="form-group">
                 {!! Form::Label('date', 'Display Date:') !!}
@@ -75,11 +82,11 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Description:</strong>
-                {!! Form::textarea('description', null, array('placeholder' => 'Description','class' => 'form-control','style'=>'height:100px')) !!}
+                {!! Form::textarea('description', null, array('placeholder' => 'Description','class' => 'form-control','style'=>'height:250px')) !!}
             </div>
         </div>
 
-        <div class="col-xs-6 col-sm-6 col-md-6">
+        <div class="col-xs-4 col-sm-4 col-md-4" style="display:none" id="media_uploading_file" >
             <div class="form-group">
                 <strong>File:</strong>
                 {!! Form::file('file_name', $attributes = array()) !!}
@@ -101,12 +108,22 @@
 
 
     <script>
-        $( function() {
-            $( "#date" ).datepicker({
-                changeMonth: true,
-                changeYear: true
-            });
-        } );
+
+        function updateInputFields() {
+            if ($("#media_type_id option:selected").text() == "None"){
+                $('#media_url').hide();
+                $('#media_uploading_file').hide();
+            }
+            else if ($("#media_type_id option:selected").text() == "Video" | $("#media_type_id option:selected").text() == "Sound" ){
+                $('#media_url').show();
+                $('#media_uploading_file').hide();
+
+            }
+            else{
+                $('#media_url').hide();
+                $('#media_uploading_file').show();
+            }
+        }
     </script>
 
 

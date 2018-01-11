@@ -40,7 +40,7 @@
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div  class="form-group">
                 {!! Form::Label('type', 'Type:') !!}
-                {!! Form::select('type_id', $types, null, ['class' => 'form-control']) !!}
+                {!! Form::select('type_id', $types, null, ['class' => 'form-control','onClick'=>'updateInputFields()','id'=>'media_type_id']) !!}
             </div>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
@@ -49,6 +49,14 @@
                 {!! Form::select('copyright_status_id', $statuses, null, ['class' => 'form-control']) !!}
             </div>
         </div>
+        <div class="col-xs-8 col-sm-8 col-md-8" style="display:none" id="media_url" >
+            <div  class="form-group" >
+                {!! Form::Label('media_url', 'Media URL:') !!}
+                {!! Form::text('media_url', null, array('placeholder' => 'Media URL','class' => 'form-control')) !!}
+            </div>
+        </div>
+
+
         <div class="col-xs-8 col-sm-8 col-md-8">
             <div class="form-group">
                 {!! Form::Label('date', 'Display Date:') !!}
@@ -87,13 +95,13 @@
             </div>
         </div>
 
-        <div class="col-xs-3 col-sm-3 col-md-3">
+        <div class="col-xs-3 col-sm-3 col-md-3" style="display:none" id="old_uploaded_filename" >
             <div class="form-group">
                 <strong>Old File Name:</strong>
                 {{ $media->fileName }}
             </div>
         </div>
-        <div class="col-xs-6 col-sm-6 col-md-6">
+        <div class="col-xs-6 col-sm-6 col-md-6" style="display:none" id="media_uploading_file" >
             <div class="form-group">
                 <strong>New File:</strong>
                 {!! Form::file('file_name', $attributes = array()) !!}
@@ -113,5 +121,29 @@
     </div>
     {!! Form::close() !!}
 
+    <script>
 
+
+        function updateInputFields() {
+            if ($("#media_type_id option:selected").text() == "None"){
+                $('#media_url').hide();
+                $('#media_uploading_file').hide();
+                $('#old_uploaded_filename').hide();
+            }
+            else if ($("#media_type_id option:selected").text() == "Video" | $("#media_type_id option:selected").text() == "Sound" ){
+                $('#media_url').show();
+                $('#media_uploading_file').hide();
+                $('#old_uploaded_filename').hide();
+
+            }
+            else{
+                $('#media_url').hide();
+                $('#media_uploading_file').show();
+                $('#old_uploaded_filename').show();
+            }
+        }
+        $( document ).ready(function() {
+            updateInputFields();
+        });
+    </script>
 @endsection
