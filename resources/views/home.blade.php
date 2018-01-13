@@ -222,7 +222,23 @@
                     { "data": "id" },
                     { "data": "name" },
                     { "data": "description" },
-                    { "data": "created_at" }
+                    { "data": "created_at" },
+                    {
+                        sortable: false,
+                        searchable:false,
+                        "render": function ( data, type, full, meta ) {
+                            return "<a  class='btn btn-primary' href='./set/"+full.id+"/edit'> Edit </a>";
+
+                        }
+                    },
+                    {
+                        sortable: false,
+                        searchable:false,
+                        "render": function ( data, type, full, meta ) {
+                            return  "<a  class='btn btn-danger' href='./set/"+full.id+"/destroy'> Delete </a>";
+
+                        }
+                    }
                 ]
 
             });
