@@ -72,6 +72,6 @@ Route::get('/client/setDiscoveryStatus', array('uses' => 'PlayerController@updat
 Route::get('/client/getHint', array('uses' => 'PlayerController@getHint'));
 Route::get('/client/getSetStatusSummary', array('uses' => 'PlayerController@getSetStatusSummary'));
 Route::get('/client/getAllProfiles', array('uses' => 'ProfileController@getAllExceptDraft'));
-Route::get('/client/test', array('uses' => 'ProjectController@getDatatable'));
+//Route::get('/client/test', array('uses' => 'ProjectController@getDatatable'));
 Route::post('image-upload',['as'=>'image.upload.post','uses'=>'MediaController@imageUploadPost']);
 Route::post('media-update',['as'=>'media.update','uses'=>'MediaController@update']);
