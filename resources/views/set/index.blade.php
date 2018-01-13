@@ -71,32 +71,34 @@
 
 
                 "columns": [
-                    {
-                        "className":      'details-control',
-                        "orderable":      false,
-                        "data":           null,
-                        "defaultContent": ''
-                    },
+
                     { "data": "id" },
                     { "data": "name" },
                     { "data": "description" },
                     { "data": "created_at" },
+                    {
+                        sortable: false,
+                        searchable:false,
+                        "render": function ( data, type, full, meta ) {
+                                return "<a  class='btn btn-primary' href='./set/"+full.id+"/edit'> Edit </a>";
+
+
+                        }
+                    },
+                    {
+                        sortable: false,
+                        searchable:false,
+                        "render": function ( data, type, full, meta ) {
+                            return  "<a  class='btn btn-danger' href='./set/"+full.id+"/destroy'> Delete </a>";
+
+                        }
+                    }
 
                 ]
 
             });
         });
 
-        $(document).ready(function() {
-            console.log('hi');
-            var table = $("#table");
-            table.find('tr').each(function (key, val) {
-                $(this).find('td').each(function (key, val) {
-                    var productId = val[key].innerHTML; // this isn't working
-                    console.log(productId);
-                });
-            });
-        });
 
     </script>
 
