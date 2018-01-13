@@ -69,11 +69,7 @@
                 "serverSide": true,
                 "ajax": "{{ route('api.sets.index') }}",
 
-                "columnDefs": [ {
-                    "targets": -1,
-                    "data": null,
-                    "defaultContent": "<button>Click!</button>"
-                } ],
+
                 "columns": [
                     { "data": "id" },
                     { "data": "name" },
@@ -83,7 +79,8 @@
                         sortable: false,
                         searchable:false,
                         "render": function ( data, type, full, meta ) {
-                                return "<a  class='btn btn-primary' href='./set/"+full.id+"/edit'> Edit </a>";
+//                                return "<a  class='btn btn-primary' href='./set/"+full.id+"/edit'> Edit </a>";
+                            return '<a class="btn btn-info btn-sm" href=#/' + full.id + '>' + 'Edit' + '</a>';
 
                         }
                     },
@@ -91,7 +88,7 @@
                         sortable: false,
                         searchable:false,
                         "render": function ( data, type, full, meta ) {
-                            return  "<a  class='btn btn-danger' href='./set/"+full.id+"/destroy'> Delete </a>";
+//                            return  "<a  class='btn btn-danger' href='./set/"+full.id+"/destroy'> Delete </a>";
 
                         }
                     }
