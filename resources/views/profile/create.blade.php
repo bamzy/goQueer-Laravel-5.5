@@ -54,7 +54,7 @@
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div  class="form-group">
                 {!! Form::Label('show', 'Show all Locations:') !!}
-                {!! Form::select('show', array('0'=>'No', '1'=>'Yes'), null, ['class' => 'form-control']) !!}
+                {!! Form::select('show', array('0'=>'No', '1'=>'Yes','2'=> 'Only show pins, not the galleries'), null, ['class' => 'form-control']) !!}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">

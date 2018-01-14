@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="text-center">
-                <h2>Edit Location</h2>
+                <h2>Edit Profile</h2>
             </div>
         </div>
     </div>
@@ -55,7 +55,7 @@
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div  class="form-group">
                 {!! Form::Label('show', 'Show all Locations:') !!}
-                {!! Form::select('show', array('0'=>'No', '1'=>'Yes'), null, ['class' => 'form-control']) !!}
+                {!! Form::select('show', array('0'=>'No', '1'=>'Yes', '2'=> 'Only show pins, not the galleries'), null, ['class' => 'form-control']) !!}
             </div>
         </div>
 
