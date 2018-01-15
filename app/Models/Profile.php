@@ -10,7 +10,7 @@ class Profile extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description','show','lat','lng'
+        'name', 'description','show','lat','lng','zoom','tilt','bearing'
     ];
 
 

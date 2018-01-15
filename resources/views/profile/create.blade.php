@@ -51,6 +51,24 @@
                 {!! Form::text('lat', null, array('placeholder' => 'Latitude','class' => 'form-control')) !!}
             </div>
         </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+            <div class="form-group">
+                <strong>Zoom:</strong>
+                {!! Form::select('zoom', array('1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10','11'=>'11','12'=>'12','13'=>'13','14'=>'14','15'=>'15'), null, ['class' => 'form-control']) !!}
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+            <div class="form-group">
+                <strong>Tile (in degrees):</strong>
+                {!! Form::select('tilt', array('10'=>'10','20'=>'20','30'=>'30','40'=>'40','50'=>'50','60'=>'60','70'=>'70','80'=>'80','90'=>'90'), null, ['class' => 'form-control']) !!}
+            </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+            <div class="form-group">
+                <strong>Bearing:</strong>
+                {!! Form::select('bearing', array('5'=>'5','10'=>'10','15'=>'15','20'=>'20','25'=>'25','30'=>'30','35'=>'35','40'=>'40','45'=>'45'), null, ['class' => 'form-control']) !!}
+            </div>
+        </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
             <div  class="form-group">
                 {!! Form::Label('show', 'Show all Locations:') !!}
@@ -64,7 +82,7 @@
 
     </div>
     {!! Form::close() !!}
-
+    <img src="{{ URL::to('/') }}/img/profileDesc.png" alt="How to Set Properties of Profile" />
 
 
 

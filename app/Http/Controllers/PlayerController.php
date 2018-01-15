@@ -285,9 +285,9 @@ class PlayerController extends Controller
         $profile = DB::table('profile')->where('profile.name','=',$profile_name)->first();
         //dd ($profile->name);
         if ($profile != null) {
-            if ($profile->show)
+            if ($profile->show == 1)
                 return $this->getAllLocationsAsList($profile_name);
-            else {
+            else if ($profile->show == 2 || $profile->show == 0) {
 
                 $myLocations = DB::table('player')->where('player.device_id', '=', $device_id)
                     ->join('discovery', 'discovery.player_id', '=', 'player.id')
