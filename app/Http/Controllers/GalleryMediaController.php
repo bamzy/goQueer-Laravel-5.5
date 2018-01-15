@@ -158,6 +158,7 @@ class GalleryMediaController extends Controller
                 \DB::table('gallery_media')->insert(
                     ['gallery_id' => $gallery_id,
                         'media_id' => $media_id,
+                        'order' => 0
                     ]
                 );
             }

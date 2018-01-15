@@ -11,5 +11,5 @@ class GalleryMedia extends Model
      * @var string
      */
     protected $table = 'gallery_media';
-    public $fillable = ['gallery_id','media_id'];
+    public $fillable = ['gallery_id','media_id','order'];
 }
