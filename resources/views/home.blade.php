@@ -44,7 +44,7 @@
             </div>
 
             <div>
-                <span class="icon fa-share-alt"></span>
+                <span class="icon fa-share-square-o"></span>
                 <h3>Share</h3>
                 <p>Let everyone enjoy</p>
             </div>
