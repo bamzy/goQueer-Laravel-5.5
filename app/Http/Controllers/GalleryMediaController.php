@@ -205,14 +205,13 @@ class GalleryMediaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($input)
+    public function destroy($galleryMediaID,$galleryID)
     {
+//        dd($galleryMediaID.'|'.$galleryID);
         if (Auth::check()) {
-            $parameters = explode("&", $input);
 
-
-            GalleryMedia::find($parameters[0])->delete();
-            return redirect()->route('gallery.show',$parameters[1])
+            GalleryMedia::find($galleryMediaID)->delete();
+            return redirect()->route('gallery.show',$galleryID)
                 ->with('success','Association deleted successfully');
         } else
             return view('errors.permission');

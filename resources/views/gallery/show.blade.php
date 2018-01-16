@@ -78,9 +78,8 @@
                 <td><div style="height:20px;width:250px;overflow:hidden">{{ $assigned_media->description }}</div></td>
                 <td><div style="height:20px;width:25px;overflow:hidden">{{ $assigned_media->order}}</div></td>
                 <td><div style="height:50px;width:70px;overflow:hidden">
-                        {!! Form::open(['route' => ['gallery_media.destroy', $assigned_media->finalId . '&'.$id], 'method'=>'DELETE']) !!}
-                        {!! Form::submit('Delete', ['class' => 'btn navbar-btn btn-danger']) !!}
-                        {!! Form::close() !!}
+                        <a  class='btn btn-danger' href="/gallery_media/{{$assigned_media->finalId}}/destroy/{{$id}}"> Delete </a>
+
                 <td><div style="width:20px ">
                         {!! Form::open(['route' => ['order.update', $assigned_media->finalId.'&'.$id ], 'method'=>'PUT']) !!}
                         {!! Form::submit('↑', ['class' => 'btn navbar-btn btn-info']) !!}
