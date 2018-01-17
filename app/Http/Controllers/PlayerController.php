@@ -283,11 +283,11 @@ class PlayerController extends Controller
     public function getMyDiscoveredLocationsAsList($device_id,$profile_name)
     {
         $profile = DB::table('profile')->where('profile.name','=',$profile_name)->first();
-        //dd ($profile->name);
+        //{!! Form::select('show', array('0'=>'No', '1'=>'Yes','2'=> 'Only show pins, not the galleries'), null, ['class' => 'form-control']) !!}
         if ($profile != null) {
-            if ($profile->show == 1)
-                return $this->getAllLocationsAsList($profile_name);
-            else if ($profile->show == 2 || $profile->show == 0) {
+//            if ($profile->show == 1 || $profile->show == 2)
+//                return $this->getAllLocationsAsList($profile_name);
+//            else if ($profile->show == 0) {
 
                 $myLocations = DB::table('player')->where('player.device_id', '=', $device_id)
                     ->join('discovery', 'discovery.player_id', '=', 'player.id')
@@ -299,8 +299,8 @@ class PlayerController extends Controller
     //        var_dump($myLocations);
                 return $myLocations;
             }
-        }
-        else return null;
+//        }
+//        else return null;
     }
 
     /**
