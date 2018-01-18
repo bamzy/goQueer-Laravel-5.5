@@ -35,6 +35,8 @@
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Description</th>
+                                <th>Show Pins</th>
+                                <th>Visible to Client</th>
 
                                 <th>Edit</th>
                                 <th>Delete</th>
@@ -65,7 +67,31 @@
                     { "data": "name" },
                     { "data": "description" },
                     {
-                        sortable: false,
+                        sortable: true,
+                        searchable:false,
+                        "render": function ( data, type, full, meta ) {
+                            if (full.show == '0')
+                                return 'No';
+                            else if (full.show == '1')
+                                return 'Yes';
+                            else if (full.show == '2')
+                                return 'Yes, but cant see galleries';
+
+                        }
+                    },
+                    {
+                        sortable: true,
+                        searchable:false,
+                        "render": function ( data, type, full, meta ) {
+                            if (full.visibleToPlayer == '0')
+                                return 'Hidden';
+                            if (full.visibleToPlayer == '1')
+                                return 'Visible';
+                        }
+
+                    },
+                    {
+                        sortable: true,
                         searchable:false,
                         "render": function ( data, type, full, meta ) {
                             return "<a  class='btn btn-primary' href='./profile/"+full.id+"/edit'> Edit </a>";
@@ -84,6 +110,12 @@
 
             });
         });
+
+
+        $.fn.dataTable.ext.errMode = 'none';
+        $('#table').on( 'error.dt', function ( e, settings, techNote, message ) {
+            console.log( 'An error has been reported by DataTables: ', message );
+        } ) ;
     </script>
 
 
