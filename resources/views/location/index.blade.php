@@ -20,7 +20,7 @@
                     <div class="panel-heading"><div class="row">
                             <div class="col-lg-12 margin-tb">
                                 <div class="text-center">
-                                    <h1>Media List</h1>
+                                    <h1>Location List</h1>
                                 </div>
                             </div>
                         </div>

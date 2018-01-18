@@ -62,6 +62,7 @@ class LocationController extends Controller
             $this->validate($request, [
                 'coordinates' => 'required',
                 'address' => 'required',
+                'description' => 'required',
                 'name' => 'required',
                 'gallery_id' => 'required',
                 'profile_id' => 'required'
