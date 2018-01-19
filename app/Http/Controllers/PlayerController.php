@@ -34,6 +34,7 @@ class PlayerController extends Controller
             $userId = \DB::table('user')->insert(
                 [
                     'role_id' => '2',
+                    'name' => 'Auto-generated Record',
                     'password' => 'no password',
                     'email' => $request->device_id,
 
@@ -51,7 +52,6 @@ class PlayerController extends Controller
             );
 
         }
-
 
         $locations = $this->getMyDiscoveredLocationsAsList($request->device_id,$request->profile_name);
 
@@ -288,7 +288,6 @@ class PlayerController extends Controller
 //            if ($profile->show == 1 || $profile->show == 2)
 //                return $this->getAllLocationsAsList($profile_name);
 //            else if ($profile->show == 0) {
-
                 $myLocations = DB::table('player')->where('player.device_id', '=', $device_id)
                     ->join('discovery', 'discovery.player_id', '=', 'player.id')
                     ->join('location', 'location.id', '=', 'discovery.location_id')
