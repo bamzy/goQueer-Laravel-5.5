@@ -48,7 +48,7 @@ class APIController extends Controller
      public function getLocations()
     {
         $query = \DB::table('location')
-            ->join('profile', 'location.profile_id', '=', 'profile.id')
+            ->leftjoin('profile', 'location.profile_id', '=', 'profile.id')
             ->select('location.*', 'profile.name as profileName')->get();
         return datatables($query)->make(true);
     }
