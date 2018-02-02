@@ -104,6 +104,7 @@ class PlayerController extends Controller
         $myLocations = DB::table('gallery_media')->where('gallery_media.gallery_id','=',$request->gallery_id)
             ->join('media', 'gallery_media.media_id', '=', 'media.id')
             ->select('media.id','media.source','media.name','media.description','media.publish_date','media.display_date','media.type_id')
+            ->orderby('gallery_media.order','desc')
             ->get();
         return $myLocations;
     }

@@ -107,8 +107,11 @@ class OrderController extends Controller
                     if (!$flag)
                         array_push($final_all_medias,$media);
                 }
-                return view('gallery.show', compact('gallery', 'final_all_medias','assigned_medias', 'id','set_name'))->with('email', Auth::user()->email)
+                return redirect()->route('gallery.show', $id)
+                    ->with('gallery', 'final_all_medias','assigned_medias', 'id','set_name')->with('email', Auth::user()->email)
                     ->with('success','Update Successful');
+//                return view('gallery.show', compact('gallery', 'final_all_medias','assigned_medias', 'id','set_name'))->with('email', Auth::user()->email)
+//                    ->with('success','Update Successful');
             } else
                 return view('errors.permission');
     }
@@ -125,6 +128,8 @@ class OrderController extends Controller
                 ->where('gallery_media.id' , '=', $gallery_media_id)
                 ->get('order');
             $order = (int)$association[0]->order- 1;
+            if ($order<0)
+                $order=0;
             \DB::table('gallery_media')
                 ->where('gallery_media.id', $gallery_media_id)
                 ->update(['order' => $order]);
@@ -157,9 +162,11 @@ class OrderController extends Controller
             }
 
 
-
-            return view('gallery.show', compact('gallery', 'final_all_medias','assigned_medias', 'id','set_name'))->with('email', Auth::user()->email)
+            return redirect()->route('gallery.show', $id)
+                ->with('gallery', 'final_all_medias','assigned_medias', 'id','set_name')->with('email', Auth::user()->email)
                 ->with('success','Update Successful');
+//            return view('gallery.show', compact('gallery', 'final_all_medias','assigned_medias', 'id','set_name'))->with('email', Auth::user()->email)
+//                ->with('success','Update Successful');
 
         } else
             return view('errors.permission');
