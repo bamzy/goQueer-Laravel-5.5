@@ -80,15 +80,23 @@
                 <td><div style="height:50px;width:70px;overflow:hidden">
                         <a  class='btn btn-danger' href="/gallery_media/{{$assigned_media->finalId}}/destroy/{{$id}}"> Delete </a>
 
-                <td><div style="width:20px ">
-                        {!! Form::open(['route' => ['order.update', $assigned_media->finalId.'&'.$id ], 'method'=>'PUT']) !!}
-                        {!! Form::submit('↑', ['class' => 'btn navbar-btn btn-info']) !!}
-                        {!! Form::close() !!}
+
+
+                <td>
+                    <div style="width:20px ">
+                        <a  class='btn navbar-btn btn-info' href='/order/increase/{{$assigned_media->finalId}}&{{$id}}'>↑</a>
+                        {{--{!! Form::open(['route' => ['order.increase', $assigned_media->finalId.'&'.$id ], 'method'=>'PUT']) !!}--}}
+                        {{--{!! Form::submit('↑', ['class' => 'btn navbar-btn btn-info']) !!}--}}
+                        {{--{!! Form::close() !!}--}}
                     </div></td>
-                <td><div style="width:20px ">
-                        {!! Form::open(['route' => ['order.destroy', $assigned_media->finalId.'&'.$id ], 'method'=>'DELETE']) !!}
-                        {!! Form::submit('↓', ['class' => 'btn navbar-btn btn-info']) !!}
-                        {!! Form::close() !!}
+                <td>
+                    <div style="width:20px ">
+                        @if($assigned_media->order > 0)
+                            <a  class='btn navbar-btn btn-info' href='/order/decrease/{{$assigned_media->finalId}}&{{$id}}'>↓</a>
+                        @endif
+                        {{--{!! Form::open(['route' => ['order.destroy', $assigned_media->finalId.'&'.$id ], 'method'=>'DELETE']) !!}--}}
+                        {{--{!! Form::submit('↓', ['class' => 'btn navbar-btn btn-info']) !!}--}}
+                        {{--{!! Form::close() !!}--}}
                     </div></td>
 
 

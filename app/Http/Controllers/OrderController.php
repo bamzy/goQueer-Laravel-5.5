@@ -61,6 +61,111 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function increase($input)
+    {
+           $parameters = explode("&", $input);
+            $id = $parameters[1];
+            $gallery_media_id = $parameters[0];
+
+            if (Auth::check()) {
+
+                $association =  \DB::table('gallery_media')
+
+                    ->select('gallery_media.order as order')
+                    ->where('gallery_media.id' , '=', $gallery_media_id)
+                    ->get('order');
+                $order = (int)$association[0]->order+ 1;
+
+                \DB::table('gallery_media')
+                    ->where('gallery_media.id', $gallery_media_id)
+                    ->update(['order' => $order]);
+
+                $gallery = Gallery::find($id);
+                $set = Set::find($gallery->set_id);
+                $set_name = $set->name;
+
+
+
+                $all_medias = Media::orderBy('id', 'DESC')->get();
+                $final_all_medias=array();
+                $set = Set::find($gallery->set_id);
+                $set_name = $set->name;
+                //dd ($set_name);
+                $assigned_medias =  \DB::table('media')
+                    ->join('gallery_media', 'media.id', '=', 'gallery_media.media_id')
+                    ->select('media.*','gallery_media.id AS finalId', 'gallery_media.order AS order')
+                    ->orderBy('gallery_media.order', 'desc')
+                    ->where('gallery_media.gallery_id' , '=', $id)
+                    ->get();
+                foreach ( $all_medias as $media){
+                    $flag  = false;
+                    foreach ($assigned_medias as $assigned_media){
+                        if ($assigned_media->id == $media->id){
+                            $flag = true;
+                        }
+                    }
+                    if (!$flag)
+                        array_push($final_all_medias,$media);
+                }
+                return view('gallery.show', compact('gallery', 'final_all_medias','assigned_medias', 'id','set_name'))->with('email', Auth::user()->email)
+                    ->with('success','Update Successful');
+            } else
+                return view('errors.permission');
+    }
+    public function decrease($input)
+    {
+        $parameters = explode("&", $input);
+        $id = $parameters[1];
+        $gallery_media_id = $parameters[0];
+        if (Auth::check()) {
+
+            $association =  \DB::table('gallery_media')
+
+                ->select('gallery_media.order as order')
+                ->where('gallery_media.id' , '=', $gallery_media_id)
+                ->get('order');
+            $order = (int)$association[0]->order- 1;
+            \DB::table('gallery_media')
+                ->where('gallery_media.id', $gallery_media_id)
+                ->update(['order' => $order]);
+            $gallery = Gallery::find($id);
+            $set = Set::find($gallery->set_id);
+            $set_name = $set->name;
+
+            $all_medias = Media::orderBy('id', 'DESC')->get();
+            $final_all_medias=array();
+            $set = Set::find($gallery->set_id);
+            $set_name = $set->name;
+            //dd ($set_name);
+            $assigned_medias =  \DB::table('media')
+                ->join('gallery_media', 'media.id', '=', 'gallery_media.media_id')
+                ->select('media.*','gallery_media.id AS finalId', 'gallery_media.order AS order')
+                ->orderBy('gallery_media.order', 'desc')
+                ->where('gallery_media.gallery_id' , '=', $id)
+                ->get();
+            foreach ( $all_medias as $media){
+                $flag  = false;
+                foreach ($assigned_medias as $assigned_media){
+                    if ($assigned_media->id == $media->id){
+                        $flag = true;
+                    }
+                }
+                if (!$flag)
+                    array_push($final_all_medias,$media);
+
+
+            }
+
+
+
+            return view('gallery.show', compact('gallery', 'final_all_medias','assigned_medias', 'id','set_name'))->with('email', Auth::user()->email)
+                ->with('success','Update Successful');
+
+        } else
+            return view('errors.permission');
+
+    }
+    /*
     public function update($input)
     {
         $parameters = explode("&", $input);
@@ -119,12 +224,8 @@ class OrderController extends Controller
             return view('errors.permission');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function destroy($input)
     {
         $parameters = explode("&", $input);
@@ -177,4 +278,5 @@ class OrderController extends Controller
         } else
             return view('errors.permission');
     }
+    */
 }

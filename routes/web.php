@@ -33,7 +33,9 @@ Route::get('/features', function () {
 Route::get('/register', function () {
     return view('auth.register');
 });
-Route::resource('order', 'OrderController');
+//Route::resource('order', 'OrderController');
+Route::get('order/increase/{id}','OrderController@increase');
+Route::get('order/decrease/{id}','OrderController@decrease');
 //Route::resource('location','LocationController');
 Route::resource('location', 'LocationController', ['except' => ['destroy']]);
 Route::get('location/{id}/destroy','LocationController@destroy');
