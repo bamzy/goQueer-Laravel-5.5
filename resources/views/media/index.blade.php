@@ -35,6 +35,7 @@
                                 <th>Source</th>
                                 <th>Publish Date</th>
                                 <th>Description</th>
+                                <th>Gallery Name</th>
 
                                 <th>Show</th>
                                 <th>Edit</th>
@@ -73,6 +74,7 @@
                     { "data": "source" },
                     { "data": "publish_date" },
                     { "data": "description" },
+                    { "data": "gallery_name" },
                     {
                         sortable: false,
                         searchable:false,

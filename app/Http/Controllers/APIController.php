@@ -23,8 +23,12 @@ class APIController extends Controller
     }
      public function getMedias()
     {
-
-        $query = Media::select('id', 'name', 'source','publish_date','description');
+//        return null;
+        $query = DB::table('media')
+            ->leftjoin('gallery_media', 'media.id','=','gallery_media.media_id')->distinct()
+            ->leftjoin('gallery','gallery_media.gallery_id','=','gallery.id')->distinct()
+            ->select('media.id','media.name','media.source','media.publish_date','media.description','gallery.name as gallery_name');
+//        $query = Media::select('id', 'name', 'source','publish_date','description');
         return datatables($query)->make(true);
     }
     public function getProfiles()
