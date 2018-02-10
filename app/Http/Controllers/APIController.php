@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Customer;
 use App\Models\Set;
 use App\Models\Media;
+use App\Models\Gallery;
 use App\Models\Profile;
 use Illuminate\Support\Facades\DB;
 
@@ -25,9 +26,21 @@ class APIController extends Controller
     {
 //        return null;
         $query = DB::table('media')
-            ->leftjoin('gallery_media', 'media.id','=','gallery_media.media_id')->distinct()
-            ->leftjoin('gallery','gallery_media.gallery_id','=','gallery.id')->distinct()
-            ->select('media.id','media.name','media.source','media.publish_date','media.description','gallery.name as gallery_name');
+            ->leftjoin('gallery_media', 'media.id','=','gallery_media.media_id')
+//            ->join('gallery','gallery_media.gallery_id','=','gallery.id')
+            ->select('media.id','media.name','media.source','media.publish_date','media.description','gallery.name as gallery_name')
+            ->leftjoin('gallery','gallery_media.gallery_id','=','gallery.id')->get();
+
+//         $galleries = Gallery::all();
+//         foreach ($query as $user) {
+//             foreach ($galleries as $gallery) {
+//                 if ($gallery->id == $user->gallery_name)
+//                     $user->gallery_name = $gallery->name;
+//             }
+//
+//         }
+//         dd($query);
+//        return;
 //        $query = Media::select('id', 'name', 'source','publish_date','description');
         return datatables($query)->make(true);
     }
