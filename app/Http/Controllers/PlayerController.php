@@ -31,26 +31,27 @@ class PlayerController extends Controller
 
         $player = DB::table('player')->where('device_id', '=', $request->device_id)->first();
         if ($player == null) {
-            $userId = \DB::table('user')->insert(
-                [
-                    'role_id' => '2',
-                    'name' => 'Auto-generated Record',
-                    'password' => 'no password',
-                    'email' => $request->device_id,
+            $user = DB::table('user')->where('email', '=', $request->device_id)->first();
+            if ($user == null) {
 
-                ]
-            );
+                $userId = \DB::table('user')->insert(
+                    [
+                        'role_id' => '2',
+                        'name' => 'Auto-generated Record',
+                        'password' => 'no password',
+                        'email' => $request->device_id,
+
+                    ]
+                );
+            }
             $user = DB::table('user')->where('email', '=', $request->device_id)->first();
 
             $id = \DB::table('player')->insert(
                 [
-
                     'user_id' => $user->id,
                     'device_id' => $request->device_id,
-
                 ]
             );
-
         }
 
         $locations = $this->getMyDiscoveredLocationsAsList($request->device_id,$request->profile_name);
@@ -103,7 +104,7 @@ class PlayerController extends Controller
 
         $myLocations = DB::table('gallery_media')->where('gallery_media.gallery_id','=',$request->gallery_id)
             ->join('media', 'gallery_media.media_id', '=', 'media.id')
-            ->select('media.id','media.source','media.name','media.description','media.publish_date','media.display_date','media.type_id')
+            ->select('media.id','media.source','media.name','media.description','media.publish_date','media.display_date','media.type_id','media.media_url')
             ->orderby('gallery_media.order','desc')
             ->get();
         return $myLocations;
@@ -168,41 +169,61 @@ class PlayerController extends Controller
     }
     public function updateDiscoveryStatus(Request $request)
     {
-        $player = DB::table('player')->where('device_id','=',$request->device_id)->first();
+
+        if ($request->device_id == null)
+            return;
+
         $user = DB::table('user')->where('email', '=', $request->device_id)->first();
-        var_dump($request->device_id);
-        var_dump($player);
-
-        $data = new Player;
+        $player = DB::table('player')->where('device_id', '=', $request->device_id)->first();
         if ($player == null ) {
+             \DB::table('user')->insert(
+                [
+                    'role_id' => '2',
+                    'name' => 'Auto-generated Record',
+                    'password' => 'no password',
+                    'email' => $request->device_id,
 
-            $data->user_id = $user->id;
-            $data->device_id = $request->device_id;
-            $data->created_at = new \DateTime('now');
-            $data->updated_at = new \DateTime('now');
-            $data->save();
-        } else
-            $data->id = $player->id;
+                ]
+            );
+            $user = DB::table('user')->where('email', '=', $request->device_id)->first();
+
+            $playerId = \DB::table('player')->insert(
+                [
+
+                    'user_id' => $user->id,
+                    'device_id' => $request->device_id,
+                    'created_at' => new \DateTime('now'),
+                    'updated_at' => new \DateTime('now')
+
+                ]
+            );
+
+        }
+        $user = DB::table('user')->where('email', '=', $request->device_id)->first();
+        $player = DB::table('player')->where('device_id', '=', $request->device_id)->first();
+
+        $playerId = $player->id;
 
 
 
 
 
-
-        $discovery = DB::table('discovery')->where('discovery.player_id', '=', $data->id)
+        $discovery = DB::table('discovery')->where('discovery.player_id', '=', $playerId)
                 ->where('discovery.location_id', '=',$request->location_id)
             ->get();
-        if ($discovery == null) {
+
+       if (sizeof($discovery) == 0) {
             \DB::table('discovery')->insert(
                 [
                     'location_id' => $request->location_id,
-                    'player_id' => $data->id,
+                    'player_id' => $playerId,
                     'created_at' => new \DateTime('now'),
                     'updated_at' => new \DateTime('now')
                 ]
             );
             return 'Successful';
-        }
+        } else
+            return 'Already Exists';
         return 'Failed';
     }
 
