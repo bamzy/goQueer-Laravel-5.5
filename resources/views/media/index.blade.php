@@ -11,7 +11,6 @@
     @endif
 
 
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
 
     <div class="container" >
         <div class="row">
@@ -55,7 +54,7 @@
     </div>
 
 
-    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+    {{--<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>--}}
     <script>
         $(document).ready( function () {
             $('#table').DataTable({

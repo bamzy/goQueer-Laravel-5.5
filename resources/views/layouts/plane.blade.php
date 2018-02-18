@@ -18,6 +18,7 @@
     <script type="text/javascript" src="{{ URL::asset('js/src/leaflet.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/src/leaflet.draw.js') }}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
     <style>
         html, body {
             background-color: #fff;
