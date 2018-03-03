@@ -85,8 +85,14 @@
                 {!! Form::textarea('description', null, array('placeholder' => 'Description','class' => 'form-control','style'=>'height:250px')) !!}
             </div>
         </div>
+        <div class="col-xs-9 col-sm-9 col-md-9">
+            <div class="form-group">
+                <strong>Extra Links:</strong>
+                {!! Form::textarea('extra_links', null, array('placeholder' => 'Extra Links separated by semicolon','class' => 'form-control','style'=>'height:150px')) !!}
+            </div>
+        </div>
 
-        <div class="col-xs-4 col-sm-4 col-md-4" style="display:none" id="media_uploading_file" >
+        <div class="col-xs-6 col-sm-6 col-md-6" style="display:none" id="media_uploading_file" >
             <div class="form-group">
                 <strong>File:</strong>
                 {!! Form::file('file_name', $attributes = array()) !!}

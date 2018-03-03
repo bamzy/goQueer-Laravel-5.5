@@ -94,10 +94,17 @@
                 {!! Form::textarea('description', null, array('placeholder' => 'Description','class' => 'form-control','style'=>'height:100px')) !!}
             </div>
         </div>
+        <div class="col-xs-9 col-sm-9 col-md-9">
+            <div class="form-group">
+                <strong>Extra Links:</strong>
+                {!! Form::textarea('extra_links', null, array('placeholder' => 'Extra Links separated by semicolon','class' => 'form-control','style'=>'height:50px')) !!}
+            </div>
+        </div>
 
-        <div class="col-xs-3 col-sm-3 col-md-3" style="display:none" id="old_uploaded_filename" >
+        <div class="col-xs-6 col-sm-6 col-md-6" style="display:none" id="old_uploaded_filename" >
             <div class="form-group">
                 <strong>Old File Name:</strong>
+                {!! Form::text('fileName', null, array('placeholder' => 'fileName','class' => 'form-control','readonly')) !!}
                 {{ $media->fileName }}
             </div>
         </div>

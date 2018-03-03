@@ -97,6 +97,7 @@ class MediaController extends Controller
                     'type_id' => $request->type_id,
                     'progress_status_id' => '1',
                     'copyright_status_id' => $request->status_id,
+                    'extra_links' => $request->extra_links,
                     'media_url' => $request->media_url,
                     'user_id' => Auth::id()]
             );
@@ -119,6 +120,7 @@ class MediaController extends Controller
             ]);
 
             $file = $request->file('file_name');
+//            dd($file);
             if ($file != null) {
                 $fileName = $file->getClientOriginalName();
                 $filePath = $file->getRealPath();
@@ -127,11 +129,21 @@ class MediaController extends Controller
 
 
             } else {
-                $fileName = "";
-                $filePath = "";
+                if ($request->fileName != null || $request->fileName == ""){
+                    $res  = DB::table('media')
+                        ->select('filePath', 'fileName')
+                        ->where('id' , '=', $request->input('media_id'))
+                        ->get();
+//                    dd($res);
+                    $fileName = $res[0]->fileName;
+                    $filePath = $res[0]->filePath;
+                } else {
+                    $fileName = "";
+                    $filePath = "";
+                }
             }
 
-
+//            dd($finalValue .'|' .  $request->media_url . '|' . $request->fileName);
             DB::table('media')
                 ->where('id', $request->input('media_id'))
                 ->update(
@@ -147,6 +159,7 @@ class MediaController extends Controller
                     'progress_status_id' => '1',
                     'copyright_status_id' => $request->copyright_status_id,
                     'media_url' => $request->media_url,
+                    'extra_links' => $request->extra_links,
                     'user_id' => Auth::id()]
             );
 
