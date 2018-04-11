@@ -104,7 +104,7 @@ class PlayerController extends Controller
 
         $myLocations = DB::table('gallery_media')->where('gallery_media.gallery_id','=',$request->gallery_id)
             ->join('media', 'gallery_media.media_id', '=', 'media.id')
-            ->select('media.id','media.source','media.name','media.description','media.publish_date','media.display_date','media.type_id','media.media_url')
+            ->select('media.id','media.source','media.name','media.description','media.publish_date','media.display_date','media.type_id','media.media_url','media.extra_links')
             ->orderby('gallery_media.order','desc')
             ->get();
         return $myLocations;
@@ -263,7 +263,6 @@ class PlayerController extends Controller
         $allLocations = $this->getAllLocationsAsList($request->profile_name);
 
         $flag= false;
-
         foreach ($allLocations as $allLocation) {
             $flag = false;
             foreach ($myLocations as $myLocation) {
@@ -273,14 +272,19 @@ class PlayerController extends Controller
             }
             if (!$flag ){
                 $temp = DB::table('hint')->where('location_id', '=', $allLocation->id)->get();
+//                dd(sizeof($temp));
+                if (sizeof($temp) != 0) {
+                    foreach ($temp as $res){
 
-                $hints = array_merge($hints, $temp);
+                         array_push($hints, $res->content);
+                    }
+                }
             }
         }
         if (sizeof($hints) > 0 ) {
             date_default_timezone_set("America/Edmonton");
             $start_date = new \DateTime($user->hint_request);
-            $current_date = $date = date('Y-m-d h:i:s');
+            $current_date = $date = date('Y-m-d H:i:s');
             $current_date = new \DateTime($current_date,new \DateTimeZone('America/Edmonton'));
             $since_start = $start_date->diff($current_date);
             $minutes = $since_start->days * 24 * 60;
@@ -288,8 +292,7 @@ class PlayerController extends Controller
             $minutes += $since_start->i;
             if ($minutes > 300 ) {
                 DB::table('user')->where('id', '=', $player->user_id)->update(['hint_request' =>new \DateTime('now',new \DateTimeZone('America/Edmonton'))]);
-//                return $hints[rand(0, sizeof($hints) - 1)]->content .'|current='. $current_date->format('Y-m-d h:i:s') . '|minutes='. $minutes . '|day=' . $since_start->days . '|h='.  $since_start->h . '|m='.  $since_start->m .'|i='.$since_start->i  ;
-                return $hints[rand(0, sizeof($hints) - 1)]->content  ;
+                return $hints[rand(0, sizeof($hints) - 1)]  ;
             }
             else
                 return "You have used all your hints for now, try again in ". (300 - $minutes) . " minutes" ;
