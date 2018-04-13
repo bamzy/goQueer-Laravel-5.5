@@ -75,6 +75,13 @@ class ProfileController extends Controller
             $this->validate($request, [
                 'name' => 'required',
                 'show' => 'required',
+                'description' => 'required',
+                'visibleToPlayer' => 'required',
+                'lat' => 'required',
+                'lng' => 'required',
+                'zoom' => 'required',
+                'tilt' => 'required',
+                'bearing' => 'required',
             ]);
 
             Profile::create($request->all());

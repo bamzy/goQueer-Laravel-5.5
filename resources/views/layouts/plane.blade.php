@@ -13,7 +13,7 @@
     <meta content="" name="author"/>
     <link rel="stylesheet" href="{{ URL::asset("css/styles.css") }}" />
     <link rel="stylesheet" href="{{ asset("css/leaflet.css") }}" />
-    <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script type="text/javascript" src="{{ URL::asset('js/home/jquery-3.2.1.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/src/leaflet.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/src/leaflet.draw.js') }}"></script>
@@ -23,7 +23,7 @@
         html, body {
             background-color: #fff;
             color: #000001;
-            font-family: 'Archivo', cursive;
+            font-family: 'Roboto', serif;
             font-weight: 100;
             height: 100vh;
             margin: 0;

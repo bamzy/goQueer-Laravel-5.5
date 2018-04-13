@@ -135,8 +135,8 @@ class GalleryController extends Controller
     {
         if (Auth::check()) {
             $gallery = Gallery::find($id);
-
-            return view('gallery.edit', compact('gallery'))->with('email',Auth::user()->email);
+            $sets = Set::pluck('name', 'id');
+            return view('gallery.edit', compact('gallery','sets'))->with('email',Auth::user()->email);
         } else
             return view('errors.permission');
     }
@@ -154,8 +154,10 @@ class GalleryController extends Controller
             $this->validate($request, [
                 'name' => 'required',
                 'description' => 'required',
+                'set_id' => 'required'
+
             ]);
-            Gallery::find($id)->update($request->all());
+            Gallery::find($id)->update(array('name' => $request->name,'description'=>$request->description,'set_id'=> $request->set_id));
             return redirect()->route('gallery.index')
                 ->with('success', 'Gallery updated successfully')->with('email',Auth::user()->email);
         } else

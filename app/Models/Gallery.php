@@ -11,5 +11,5 @@ class Gallery extends Model
      * @var string
      */
     protected $table = 'gallery';
-    public $fillable = ['name','description'];
+    public $fillable = ['name','description','set_id'];
 }

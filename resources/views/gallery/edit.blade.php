@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="text-center">
-                <h2>Edit Location</h2>
+                <h2>Edit Gallery</h2>
             </div>
         </div>
     </div>
@@ -35,6 +35,13 @@
             <div class="form-group">
                 <strong>Description:</strong>
                 {!! Form::textarea('description', null, array('placeholder' => 'Description','class' => 'form-control','style'=>'height:100px')) !!}
+            </div>
+        </div>
+
+        <div class="col-xs-4 col-sm-4 col-md-4">
+            <div  class="form-group">
+                {!! Form::Label('set', 'Belongs to what set:') !!}
+                {!! Form::select('set_id', $sets, null, ['class' => 'form-control']) !!}
             </div>
         </div>
 
