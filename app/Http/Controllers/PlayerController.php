@@ -290,7 +290,7 @@ class PlayerController extends Controller
             $minutes = $since_start->days * 24 * 60;
             $minutes += $since_start->h * 60;
             $minutes += $since_start->i;
-            if ($minutes > 300 ) {
+            if ($minutes > 300 || $start_date == null ) {
                 DB::table('user')->where('id', '=', $player->user_id)->update(['hint_request' =>new \DateTime('now',new \DateTimeZone('America/Edmonton'))]);
                 return $hints[rand(0, sizeof($hints) - 1)]  ;
             }
