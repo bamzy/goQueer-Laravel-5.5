@@ -284,13 +284,17 @@ class PlayerController extends Controller
         if (sizeof($hints) > 0 ) {
             date_default_timezone_set("America/Edmonton");
             $start_date = new \DateTime($user->hint_request);
+            if ($user != null && $user->hint_request == null){
+                DB::table('user')->where('id', '=', $player->user_id)->update(['hint_request' =>new \DateTime('now',new \DateTimeZone('America/Edmonton'))]);
+                return $hints[rand(0, sizeof($hints) - 1)]  ;
+            }
             $current_date = $date = date('Y-m-d H:i:s');
             $current_date = new \DateTime($current_date,new \DateTimeZone('America/Edmonton'));
             $since_start = $start_date->diff($current_date);
             $minutes = $since_start->days * 24 * 60;
             $minutes += $since_start->h * 60;
             $minutes += $since_start->i;
-            if ($minutes > 300 || $start_date == null ) {
+            if ($minutes > 300 ) {
                 DB::table('user')->where('id', '=', $player->user_id)->update(['hint_request' =>new \DateTime('now',new \DateTimeZone('America/Edmonton'))]);
                 return $hints[rand(0, sizeof($hints) - 1)]  ;
             }
