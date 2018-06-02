@@ -37,7 +37,7 @@
                                 <th>Description</th>
                                 <th>Show Pins</th>
                                 <th>Visible to Client</th>
-
+                                <th>Accessibility</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -87,6 +87,17 @@
                                 return 'Hidden';
                             if (full.visibleToPlayer == '1')
                                 return 'Visible';
+                        }
+
+                    },
+                    {
+                        sortable: true,
+                        searchable:false,
+                        "render": function ( data, type, full, meta ) {
+                            if (full.passwordProtected == '0')
+                                return 'Public';
+                            if (full.passwordProtected == '1')
+                                return 'Private';
                         }
 
                     },

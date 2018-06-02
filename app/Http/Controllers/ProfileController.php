@@ -32,7 +32,6 @@ class ProfileController extends Controller
     public function getAllVisibleProfiles(Request $request)
     {
 
-        //return $profiles = Profile::orderBy('id','DESC')->get();
         return $profiles = \DB::table('profile')->where('visibleToPlayer', '=', true)->get();
 
     }

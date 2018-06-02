@@ -47,7 +47,7 @@ class APIController extends Controller
     public function getProfiles()
     {
 
-        $query = Profile::select('id', 'name','description','show','visibleToPlayer');
+        $query = Profile::select('id', 'name','description','show','visibleToPlayer','passwordProtected');
         return datatables($query)->make(true);
     }
 
