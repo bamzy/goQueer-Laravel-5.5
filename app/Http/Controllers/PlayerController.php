@@ -54,18 +54,18 @@ class PlayerController extends Controller
             );
         }
 
-        $locations = $this->getMyDiscoveredLocationsAsList($request->device_id,$request->profile_name);
+        $locations = $this->getMyDiscoveredLocationsAsList($request->device_id,$request->profile_id);
 
         return $locations;
     }
     public function getAllLocations(Request $request)
     {
-        $locations = $this->getAllLocationsAsList($request->profile_name);
+        $locations = $this->getAllLocationsAsList($request->profile_id);
         return $locations;
 
     }
-    public function getAllLocationsAsList($profile_name){
-        $profile = DB::table('profile')->where('profile.name','=',$profile_name)->first();
+    public function getAllLocationsAsList($profile_id){
+        $profile = DB::table('profile')->where('profile.id','=',$profile_id)->first();
 
         if ($profile != null)
         return DB::table('location')->where('profile_id','=',$profile->id)->get();
@@ -259,8 +259,8 @@ class PlayerController extends Controller
         $user = \DB::table('user')->where('id', '=', $player->user_id)->first();
         if ($user == null)
             return "There is no hint for not registered users";
-        $myLocations = $this->getMyDiscoveredLocationsAsList($request->device_id,$request->profile_name);
-        $allLocations = $this->getAllLocationsAsList($request->profile_name);
+        $myLocations = $this->getMyDiscoveredLocationsAsList($request->device_id,$request->profile_id);
+        $allLocations = $this->getAllLocationsAsList($request->profile_id);
 
         $flag= false;
         foreach ($allLocations as $allLocation) {
@@ -309,9 +309,9 @@ class PlayerController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function getMyDiscoveredLocationsAsList($device_id,$profile_name)
+    public function getMyDiscoveredLocationsAsList($device_id,$profile_id)
     {
-        $profile = DB::table('profile')->where('profile.name','=',$profile_name)->first();
+        $profile = DB::table('profile')->where('profile.id','=',$profile_id)->first();
         //{!! Form::select('show', array('0'=>'No', '1'=>'Yes','2'=> 'Only show pins, not the galleries'), null, ['class' => 'form-control']) !!}
         if ($profile != null) {
 //            if ($profile->show == 1 || $profile->show == 2)
