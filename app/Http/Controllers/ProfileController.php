@@ -32,7 +32,7 @@ class ProfileController extends Controller
     public function getAllVisibleProfiles(Request $request)
     {
 
-        return $profiles = \DB::table('profile')->select('id','name','description','show','lat','lng','tilt','zoom','bearing','visibleToPlayer','passwordProtected','password')->where('visibleToPlayer', '=', true)->get();
+        return $profiles = \DB::table('profile')->where('visibleToPlayer', '=', true)->get();
 
     }
 
